@@ -1,7 +1,7 @@
-#Tic Tac Toe
+# Tic Tac Toe
  Also known as Noughts and Crosses
  
- ##Purpose
+ ## Purpose
   This game is part of my learning portfolio project.
- ##Approach
+ ## Approach
   It was implemented by taking advantage of OOP in python.
