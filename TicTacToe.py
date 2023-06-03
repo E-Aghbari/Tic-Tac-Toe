@@ -10,17 +10,30 @@ class Game:
     def print_board(self):
         
 
-        print( "           |           |         ")
-        print("     {}     |     {}     |     {}    ".format(Game.grids["Top left"], Game.grids["Top"], Game.grids["Top right"]))
-        print( "           |           |         ")
-        print("---------------------------------")
-        print( "           |           |         ")
-        print("     {}     |     {}     |     {}    ".format(Game.grids["Mid left"], Game.grids["Mid"], Game.grids["Mid right"]))
-        print( "           |           |         ")
-        print("----------------------------------")
-        print( "           |           |         ")
-        print("     {}     |     {}     |     {}    ".format(Game.grids["Bottom left"], Game.grids["Bottom"], Game.grids["Bottom right"]))
-        print( "           |           |         ")
+        print( "           |           |         ", end =" ")
+        print( "                                      |           |         ")
+        print("     {}     |     {}     |     {}    ".format(Game.grids["Top left"], Game.grids["Top"], Game.grids["Top right"]), end=" ")
+        print("                        {}     |    {}    |     {}    ".format("Top left", "Top", "Top right"))
+        print( "           |           |         ", end = " ")
+        print( "                                      |           |         ")
+        print("---------------------------------", end = " ")
+        print("                            ---------------------------------")
+        print( "           |           |         ", end = " ")
+        print( "                                      |           |         ")
+        print("     {}     |     {}     |     {}    ".format(Game.grids["Mid left"], Game.grids["Mid"], Game.grids["Mid right"]), end = " ")
+        print("                        {}     |    {}    |     {}    ".format("Mid left", "Mid", "Mid right"))
+        print( "           |           |         ", end = " ")
+        print( "                                      |           |         ")
+        print("----------------------------------", end = " ")
+        print("                            ----------------------------------")
+        print( "           |           |         ", end =" ")
+        print( "                                      |           |         ")
+        print("     {}     |     {}     |     {}    ".format(Game.grids["Bottom left"], Game.grids["Bottom"], Game.grids["Bottom right"]), end  = " ")
+        print("                     {}     |   {}  |     {}    ".format("Bottom left", "Bottom", "Bottom right"))
+        print( "           |           |         ", end = " ")
+        print( "                                      |           |         ")
+
+        
         
         game.check_win(player1, player2)
     
@@ -85,9 +98,9 @@ class Game:
 
 
 
-    def new_rounds(self):
+    def round(self):
         Game.rounds += 1
-        print(f"Game took {Game.rounds} rounds.")
+        
 
     def __repr__(self) -> str:
         return f"This game called Tic Tac Toe its comprised of {len(Game.grids)} grids and {len(Game.players)} players. First player fills three grids in one row, wins."
@@ -100,11 +113,15 @@ class Player:
         Game.add_players(self)
     
     def choose_grid(self, grid):
-        if Game.grids[grid] != " ":
-            grid = input( "Nah bro. Choose another one\n")
+        if grid not in Game.grids:
+            grid = input("\nNot available. Choose another one\n-")
+            self.choose_grid(grid)
+            
+        elif Game.grids[grid] != " ":
+            grid = input("\nNah bro. Choose another one\n-")
             self.choose_grid(grid)
 
-        if Game.grids[grid] == " ":
+        elif Game.grids[grid] == " ":
             self.print_move(grid)
 
     def print_move(self, grid):
@@ -117,7 +134,6 @@ class Player:
 print("\nWelcome to Tic Tac Toe, first player enter your name please and choose which mark you want 'X' or 'O'.\n")
 
 player1_name = input("\n").split()
-print(player1_name)
 
 if len(player1_name) < 2:
     mark = input(f"{player1_name[0]} please choose the mark 'X' or 'O'\n")
@@ -139,11 +155,13 @@ game = Game()
 game.print_board()
 
 while not game.game_over:
-    chosen_grid = input(f"Choose a grid {player1.name}\n")
+    chosen_grid = input(f"Choose a grid {player1.name}\n-")
     player1.choose_grid(chosen_grid)
     game.print_board()
     if game.game_over:
+        print(f"Game took {Game.rounds} rounds.")
         break
-    chosen_grid = input(f"Choose a grid {player2.name}\n")
+    chosen_grid = input(f"Choose a grid {player2.name}\n-")
     player2.choose_grid(chosen_grid) 
     game.print_board()
+    game.round()
