@@ -122,6 +122,8 @@ while not game.game_over:
     chosen_grid = input(f"Choose a grid {player1.name}\n")
     player1.choose_grid(chosen_grid)
     game.print_board()
+    if game.game_over:
+        break
     chosen_grid = input(f"Choose a grid {player2.name}\n")
     player2.choose_grid(chosen_grid) 
     game.print_board()
