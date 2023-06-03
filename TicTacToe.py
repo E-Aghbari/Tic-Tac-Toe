@@ -80,12 +80,14 @@ class Game:
         elif Game.grids["Top left"] != " " and Game.grids["Top"] != " " and Game.grids["Top right"] != " " and Game.grids["Mid left"] != " " and Game.grids["Mid"] != " " and Game.grids["Mid right"] != " " and Game.grids["Bottom left"] != " " and Game.grids["Bottom"] != " " and Game.grids["Bottom right"] != " ":
             print("It's a tie")
             Game.game_over = True
+        
+
 
 
 
     def new_rounds(self):
         Game.rounds += 1
-        print(f"{Game.rounds} has started.")
+        print(f"Game took {Game.rounds} rounds.")
 
     def __repr__(self) -> str:
         return f"This game called Tic Tac Toe its comprised of {len(Game.grids)} grids and {len(Game.players)} players. First player fills three grids in one row, wins."
@@ -110,10 +112,28 @@ class Player:
         
 
     def __repr__(self) -> str:
-        return f"{self.name}"
+        return f"{self.name} is one of best players and they have chosen {self.symbol} to play with."
 
-player1 = Player("Ebrahim", "X")
-player2 = Player("Abdullah", "O")
+print("\nWelcome to Tic Tac Toe, first player enter your name please and choose which mark you want 'X' or 'O'.\n")
+
+player1_name = input("\n").split()
+print(player1_name)
+
+if len(player1_name) < 2:
+    mark = input(f"{player1_name[0]} please choose the mark 'X' or 'O'\n")
+    while mark != "X" and mark != "O":
+        mark = input("\nOnly X or O\n")
+    player1_name.append(mark)
+
+player2_name = input("\nPlayer 2 enter your name only please.\n")
+
+if player1_name[1] == "X":
+    player2_mark = "O"
+else:
+    player2_mark = "X"
+
+player1 = Player(player1_name[0], player1_name[1])
+player2 = Player(player2_name, player2_mark)
 
 game = Game()
 game.print_board()
@@ -127,6 +147,3 @@ while not game.game_over:
     chosen_grid = input(f"Choose a grid {player2.name}\n")
     player2.choose_grid(chosen_grid) 
     game.print_board()
-
-    
-    
